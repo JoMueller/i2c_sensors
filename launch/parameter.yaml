@@ -1,0 +1,14 @@
+# Device Name of I2C-Bus (Raspberry Pi -> '/dev/i2c-1') or 'sim' for simulator (must define transformStampedName then)
+deviceName: '/dev/i2c-1'
+deviceType: uSonic
+#deviceName: 'sim'
+# Device Address of Sensor (MaxBotix Standard -> 0x70)
+deviceAddress: 112
+# geometry_msgs/TransformStamped Name of the actual pose the sensor has
+#transformStampedName: 'actual_pose_name'
+
+i2c_topic: 'tof_quad'
+# Rate in Hz
+publishRate: 8
+# MessageType 0=Range 1=UInt32 2=UInt32Stamped
+messageType: 2

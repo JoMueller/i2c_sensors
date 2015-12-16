@@ -1,0 +1,10 @@
+<launch>
+	<rosparam command="load"
+		file="$(find usonic_sensor)/launch/tof_parameter.yaml" />
+
+	<node pkg="usonic_sensor"
+		name="teraranger_sensor_node"
+		type="usonic_sensor_node"
+		output="screen"
+	/>
+</launch>

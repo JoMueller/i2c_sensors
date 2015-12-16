@@ -1,0 +1,36 @@
+# Device Name of I2C-Bus (Raspberry Pi -> '/dev/i2c-1') or 'sim' for simulator (must define transformStampedName t$
+deviceName: '/dev/i2c-1'
+#transformStampedName: 'actual_pose_name'
+
+# ToF Sensor Paramaters
+tof/publishRate: 	500 	# This is the rate in Hz per sensor! 
+tof/messageType: 	2 	# MessageType 0=Range 1=UInt32 2=UInt32Stamped
+tof/deviceAddresses:	[50]	# List of all Addresses of ToF Sensors, in decimal, not Hex! (0x32 is 50)
+tof/topic:		[tof0]	# List of topics to publish readings on
+
+# Obviously, each Sensor needs an address and a topic - the two lists must be of equal length!
+# The total rate of ToF readings aimed for is (tof/publishRate)*(tof/deviceAddresses).size().
+# I assume that measurements are done faster than polling via I2C takes. This holds at least up until 50kBaud on I2C.
+# At 50kBaud I2C you will get approx. 500Hz readings (with one sensor). A Raspberry Pi gets unstable on the I2C Bus around 40kBaud.
+# Possibly an issue with this: http://www.advamation.de/technik/raspberrypi/rpi-i2c-bug.html (Sorry, German; Google RPi I2C Bug Clock stretching)
+# At some point the I2C bus will not keep up with too many readings!
+
+
+# uSonic Sensor Paramaters
+us/publishRate: 	8 	# This is the rate in Hz per sensor! 
+us/messageType: 	2 	# MessageType 0=Range 1=UInt32 2=UInt32Stamped
+us/deviceAddresses:	[112]	# List of all Addresses of uSonic Sensors, in decimal, not Hex! (0x70 is 112)
+us/topic:		[us0]	# List of topics to publish readings on
+
+# Obviously, each Sensor needs an address and a topic - the two lists must be of equal length!
+# The total rate of uSonic readings aimed for is (us/publishRate)*(us/deviceAddresses).size().
+# The time between messages might get shorter than the signal run-time of the uSonic Ping - that would result in corrupt measurements.
+# Highest combined update rate ( (us/publishRate)*(us/deviceAddresses).size() ) successfully tested at 40kBaud was: 0Hz
+# As a rough estimate, the highest possible update rate would be 1/[uSonic Signal Runtime] = 1/(14m/340m/s) = 24Hz
+# Higher rates can be achieved by delaying getting measurements from the sensor further (currently: 1 Step).
+# At some point the I2C bus will not keep up with too many readings!
+
+# It should be possible to use different numbers of ToF and uSonic Sensors, i.e. more of one kind or the other. 
+# By providing no uSonic Sensors, this should also work for TeraRanger Uno.
+
+
